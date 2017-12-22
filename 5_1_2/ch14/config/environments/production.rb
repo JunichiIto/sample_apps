@@ -68,11 +68,11 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   host = 'coedo-sample-app.herokuapp.com'
   config.action_mailer.default_url_options = { host: host }
-  # 環境変数の取得(12.5)
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp.sendgrid.net',
     :port           => '587',
     :authentication => :plain,
+    # 環境変数の取得(12.5)
     :user_name      => ENV['SENDGRID_USERNAME'],
     :password       => ENV['SENDGRID_PASSWORD'],
     :domain         => 'heroku.com',

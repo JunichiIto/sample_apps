@@ -98,7 +98,7 @@ class User < ApplicationRecord
   # current_user.id
   # current_user.microposts
   def feed
-    # 文字列リテラルは改行可能(2.8.3)
+    # 文字列リテラルは改行可能。代わりにヒアドキュメントを使ってもよい(2.8.3)
     following_ids = "SELECT followed_id FROM relationships
                      WHERE follower_id = :user_id"
     Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id",
