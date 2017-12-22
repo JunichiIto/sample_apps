@@ -16,13 +16,16 @@ module SessionsHelper
     cookies.delete(:user_id)
     cookies.delete(:remember_token)
   end
-  
+
+  # ?で終わるメソッドの定義(2.11.2)
   def current_user?(user)
     user == current_user
   end
 
   def current_user
+    # 条件分岐で変数に代入(コラム173ページ)
     if (user_id = session[:user_id])
+      # ||= を使った自己代入(コラム174ページ)
       @current_user ||= User.find_by(id: user_id)
 
     elsif (user_id = cookies.signed[:user_id])

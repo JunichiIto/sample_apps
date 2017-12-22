@@ -1,11 +1,15 @@
+# require_relative(2.12.9)
 require_relative 'boot'
 
+# require(2.12.7)
 require 'rails/all'
 
+# 引数のsplat展開(4.7.6)
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# モジュールを名前空間として使う(8.6.1)
 module SampleApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

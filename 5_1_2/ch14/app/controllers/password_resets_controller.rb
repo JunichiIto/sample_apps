@@ -52,6 +52,7 @@ class PasswordResetsController < ApplicationController
     end
 
     def valid_user
+      # not演算子の利用(2.10.2)
       if not (@user && @user.activated? &&
               @user.authenticated?(:reset, params[:id]))
         redirect_to root_url
