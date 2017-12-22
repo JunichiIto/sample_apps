@@ -1,4 +1,4 @@
-# 例外的に大文字で始まるメソッドを呼び出す（2.6項の備考欄）
+# 例外的に大文字で始まるメソッドを呼び出す（2.6節の備考欄）
 # https://docs.ruby-lang.org/ja/latest/method/Kernel/m/Integer.html
 workers Integer(ENV['WEB_CONCURRENCY'] || 2)
 threads_count = Integer(ENV['RAILS_MAX_THREADS'] || 5)
