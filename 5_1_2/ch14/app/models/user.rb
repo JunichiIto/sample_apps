@@ -16,13 +16,16 @@ class User < ApplicationRecord
   has_many :followers,
     through: 'passive_relationships',
      source: 'follower'
-  
+
+  # attr_accessorはRuby標準のメソッド(7.3.3)
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
   before_create :create_activation_digest
 
 
   validates :name,  presence: true, length: { maximum:  50 }
+  # 定数の定義(7.3.5)
+  # 正規表現リテラルとiオプション(6.3, 6.5.3)
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
@@ -31,7 +34,9 @@ class User < ApplicationRecord
   validates :password, presence: true, 
     length: { minimum: 6 }, allow_nil: true
 
+  # クラスメソッドの定義（def self.xxxを使わないパターン）(7.3.4, 7.10.8)
   def User.digest(string)
+    # 二重コロンを使った定数参照(7.8)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
@@ -42,7 +47,9 @@ class User < ApplicationRecord
   end
 
   def remember
+    # セッターメソッドの呼び出し（selfを付け忘れるとローカル変数への代入になる）(7.5.1)
     self.remember_token = User.new_token
+    # こっちのselfは省略可能(7.5)
     self.update_attribute(:remember_digest,
       User.digest(remember_token))
   end
@@ -53,7 +60,9 @@ class User < ApplicationRecord
   
   # 渡されたトークンがダイジェストと一致したらtrueを返す
   def authenticated?(attribute, token)
+    # sendメソッドの利用(12.6)
     digest = self.send("#{attribute}_digest")
+    # returnを使って途中でメソッドを抜ける(2.6.1)
     return false if digest.nil?
     BCrypt::Password.new(digest).is_password?(token)
   end
@@ -64,6 +73,7 @@ class User < ApplicationRecord
   end
 
   def send_activation_email
+    # 自分自身（Userクラスのインスタンス）を引数として渡す(7.5)
     UserMailer.account_activation(self).deliver_now
   end
   
@@ -78,6 +88,7 @@ class User < ApplicationRecord
   end
 
   def password_reset_expired?
+    # hoursメソッドはRailsの独自拡張(A.2)
     reset_sent_at < 2.hours.ago
   end
   
@@ -87,6 +98,7 @@ class User < ApplicationRecord
   # current_user.id
   # current_user.microposts
   def feed
+    # 文字列リテラルは改行可能。代わりにヒアドキュメントを使ってもよい(2.8.3)
     following_ids = "SELECT followed_id FROM relationships
                      WHERE follower_id = :user_id"
     Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id",

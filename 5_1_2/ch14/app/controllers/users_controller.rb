@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  # 配列リテラルは改行しても有効(4.2)
   before_action :logged_in_user, only: [:index, :edit,
                                         :update, :destroy,
                                         :following, :followers]
@@ -83,6 +84,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
+      # メソッドが続くことが明らかなので引数を改行させている(2.2.3)
       params.require(:user).permit(
         :name, :email, :password, 
         :password_confirmation)
@@ -93,6 +95,7 @@ class UsersController < ApplicationController
       # GET   /users/:id/edit
       # PATCH /users/:id
       @user = User.find(params[:id])
+      # 後置unless(2.10.3)
       redirect_to(root_url) unless current_user?(@user)
     end
     

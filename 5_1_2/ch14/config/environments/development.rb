@@ -1,3 +1,4 @@
+# DSLなのでドキュメントっぽく読めるが、大半はセッターメソッドの呼び出しになっている(コラム424ページ)
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 

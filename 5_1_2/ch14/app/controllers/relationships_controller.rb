@@ -5,7 +5,9 @@ class RelationshipsController < ApplicationController
   def create
     @user = User.find(params[:followed_id])
     current_user.follow(@user) # DB 更新
+    # ブロックとブロック引数(4.3.2)
     respond_to do |format|
+      # {}を使ったブロックの作成(4.3.5)
       format.html { redirect_to @user }
       format.js # => app/views/relationships/create.js.erb
     end

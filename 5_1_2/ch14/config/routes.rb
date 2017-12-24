@@ -1,3 +1,4 @@
+# DSLなのでドキュメントっぽく読めるが、大半はRubyのメソッド呼び出しになっている(コラム424ページ)
 Rails.application.routes.draw do
   get 'password_resets/new'
 

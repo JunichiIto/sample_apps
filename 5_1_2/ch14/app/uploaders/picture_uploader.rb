@@ -2,6 +2,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   process resize_to_limit: [400, 400]
 
+  # クラス構文の直下に処理を書く(7.5.2)
   if Rails.env.production?
     storage :fog
   else
@@ -16,6 +17,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   end
 
   def extension_whitelist
+    # %リテラルを使って文字列の配列を作成する(4.7.10)
     %w(jpg jpeg gif png)
   end
 

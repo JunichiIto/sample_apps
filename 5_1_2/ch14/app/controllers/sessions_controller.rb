@@ -12,10 +12,12 @@ class SessionsController < ApplicationController
       if user.activated?
         # Success
         log_in user
+        # 三項演算子(2.10.5)
         params[:session][:remember_me] == '1' ? remember(user) : forget(user)
         redirect_back_or user
       else
         message  = "Account not activated. "
+        # +=を使った文字列の連結(4.6.2)
         message += "Check your email for the activation link."
         flash[:warning] = message
         redirect_to root_url

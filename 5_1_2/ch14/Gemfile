@@ -1,3 +1,4 @@
+# DSLなのでドキュメントっぽく読めるが、大半はRubyのメソッド呼び出しになっている(コラム424ページ)
 source 'https://rubygems.org'
 
 gem 'rails',        '5.1.2'
