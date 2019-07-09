@@ -9,10 +9,10 @@ RSpec.describe "Users signup", type: :request do
                                          password:              "password",
                                          password_confirmation: "password" } }
     }.to change(User, :count).by(1)
-    redirect_to @user
+    # redirect_to @user
     follow_redirect!
     # Test
-    assert_template 'users/show'
-    assert is_logged_in?
+    expect(response).to render_template('users/show')
+    expect(is_logged_in?).to be_truthy
   end
 end
